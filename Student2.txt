@@ -1,0 +1,73 @@
+import java.awt.*;
+import java.awt.event.*;
+
+class MyStudent2 extends Frame implements ActionListener {
+   Label lb1, lb2, lb3, lb4, lb5, title;
+   TextField tf1, tf2, tf3, tf4, tf5;
+   Button bt1, bt2;
+   TextArea ta;
+   Checkbox male, female;
+   CheckboxGroup bg = new CheckboxGroup();
+
+   MyStudent2(){
+     super("My Demo");
+     setSize(150, 300);
+     setLayout(new FlowLayout());
+     setLocationRelativeTo(null);
+     lb1 = new Label("ID : ");
+     lb2 = new Label("NAME : ");
+     lb3 = new Label("SEX : ");
+     lb4 = new Label("AGE : ");
+     lb5 = new Label("SCORE : ");
+     title = new Label("Student Records");
+     tf1 = new TextField(6);
+     tf2 = new TextField(6);
+     tf3 = new TextField(6); 
+     tf4 = new TextField(6);
+     tf5 = new TextField(6);
+     bt1 = new Button("ADD");
+     bt2 = new Button("CLEAR");
+     ta = new TextArea(3, 10);
+     male = new Checkbox("Male", true, bg);
+     female = new Checkbox("Female", false, bg);
+
+     //add(title);
+     add(lb1); add(tf1);
+     add(lb2); add(tf2);
+     add(lb3); add(male); add(female); //add(tf3);
+     add(lb4); add(tf4);
+     add(lb5); add(tf5);
+     add(bt1); add(bt2);
+     add(ta);
+     setVisible(true);
+     addWindowListener(new WindowAdapter(){
+        public void windowClosing(WindowEvent we){
+           System.exit(0);
+        }
+     });
+     bt1.addActionListener(this);
+     bt2.addActionListener(this);
+   }
+   public static void main(String args[]){
+      new MyStudent2();
+   }
+   public void actionPerformed(ActionEvent ae){
+      String sex = "";
+      if (male.getState() == true)
+         sex = "Male";
+      else
+         sex = "Female";
+      if (ae.getSource() == bt1){
+         ta.append(tf1.getText() + ", " + tf2.getText() + ", " +
+                   sex + ", " + tf4.getText() + ", " +
+                   tf5.getText() + "\n\r");
+      }
+      if (ae.getSource() == bt2){
+         tf1.setText("");
+         tf2.setText("");
+         male.setState(true); //tf3.setText("");
+         tf4.setText("");
+         tf5.setText("");
+      }
+   }
+}
